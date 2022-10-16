@@ -7,13 +7,16 @@ _accesskey  = "49VqJ9vAGYrvFlqgILiSLeDN"
 _secretkey  = "KUhmrP1mm2w57tVVvSUYf6tPqN2Tu5J9"
 _hostname   = 'api.beebotte.com'
 bbt = BBT( _accesskey, _secretkey, hostname = _hostname)
+@st.cache
+def get_value():
+	records = bbt.read('Arduino','led',limit = 5)
+	if records[0]['data']:
+		value='ON'
+	else:
+		value='OFF'
+	return value
 
-records = bbt.read('Arduino','led',limit = 5)
-if records[0]['data']:
-	value='ON'
-else:
-	value='OFF'
-
+value=get_value()
 
 
 st.title('Lights Control')
